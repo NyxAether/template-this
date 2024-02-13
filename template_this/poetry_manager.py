@@ -47,13 +47,24 @@ class PoetryManager(object):
                     )
 
         # Update pyproject.toml
-        if paths.pyproject.exists():
+
+        if cli and paths.pyproject.exists():
             with open(paths.pyproject, "r") as config, open(
                 project_path / "pyproject.toml", "a"
             ) as toml:
                 template = Environment().from_string(config.read())
                 toml.write("\n\n")
                 toml.write(template.render(project_name=project_path.name))
+            src_file = project_path.name.replace("-", "_")
+            cli_path = project_path / src_file / "cli" / "__init__.py"
+            cli_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(cli_path, "w") as cli_file:
+                cli_file.write(
+                    "def main() -> None:\n"
+                    "    pass\n\n"
+                    "if __name__ == '__main__':\n"
+                    "    main()"
+                )
         # Install dependencies
         subprocess.run([self.settings.poetry_path, "install"])
 
