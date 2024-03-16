@@ -11,18 +11,19 @@ from template_this.project_builder import ProjectBuilder
 @click.argument("project_path")
 @click.option("--github", default="", help="ssh url to your github repository")
 @click.option(
-    "--no-cli",
-    is_flag=True,
+    "--cli-name",
     show_default=True,
-    default=False,
-    help="Add this option if you don't want a cli alias in your pyproject.toml "
-    "generated py poetry",
+    default="False",
+    help=(
+        "Specify if you want a cli alias in your pyproject.toml."
+        "If none are specified, no cli alias nor cli config will be generated"
+    ),
 )
-def main(project_path: str, github: str, no_cli: bool) -> None:
+def main(project_path: str, github: str, cli_name: str) -> None:
     paths = Paths(Path(os.getcwd()))
 
     builder = ProjectBuilder(
-        project_path=Path(project_path), paths=paths, github=github, cli=not no_cli
+        project_path=Path(project_path), paths=paths, github=github, cli_name=cli_name
     )
     builder.build()
 

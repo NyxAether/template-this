@@ -12,7 +12,7 @@ class VSCodeManager:
         pass
 
     def build(
-        self, project_path: Path, settings: ProjectSettings, paths: Paths, cli: bool
+        self, project_path: Path, settings: ProjectSettings, paths: Paths, cli_name: str
     ) -> None:
         if settings.vscode_config is None:
             return
@@ -26,7 +26,7 @@ class VSCodeManager:
                     project_path / launch_path, "w"
                 ) as launch:
                     template = Environment().from_string(template_cfg.read())
-                    launch.write(template.render(cli=cli))
+                    launch.write(template.render(cli_name=cli_name))
             except FileNotFoundError:
                 print(
                     f"File {paths.cache_dir / launch_path} not found. "

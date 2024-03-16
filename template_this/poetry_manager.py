@@ -13,7 +13,7 @@ class PoetryManager(object):
     def __init__(self, settings: ProjectSettings) -> None:
         self.settings = settings
 
-    def build(self, project_path: Path, paths: Paths, cli: bool) -> Path:
+    def build(self, project_path: Path, paths: Paths, cli_name: str) -> Path:
         if project_path.exists():
             raise FileExistsError(
                 f"Project path {project_path} already exists. Aborting."
@@ -47,14 +47,15 @@ class PoetryManager(object):
                     )
 
         # Update pyproject.toml
-
-        if cli and paths.pyproject.exists():
+        if cli_name and paths.pyproject.exists():
             with open(paths.pyproject, "r") as config, open(
                 project_path / "pyproject.toml", "a"
             ) as toml:
                 template = Environment().from_string(config.read())
                 toml.write("\n\n")
-                toml.write(template.render(project_name=project_path.name))
+                toml.write(
+                    template.render(project_name=project_path.name, cli_name=cli_name)
+                )
             src_file = project_path.name.replace("-", "_")
             cli_path = project_path / src_file / "cli" / "__init__.py"
             cli_path.parent.mkdir(parents=True, exist_ok=True)
