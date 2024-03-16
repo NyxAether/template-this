@@ -48,13 +48,17 @@ class PoetryManager(object):
 
         # Update pyproject.toml
         if cli_name and paths.pyproject.exists():
+            print(f"Updating {project_path.name.replace('-', '_')}")
             with open(paths.pyproject, "r") as config, open(
                 project_path / "pyproject.toml", "a"
             ) as toml:
                 template = Environment().from_string(config.read())
                 toml.write("\n\n")
                 toml.write(
-                    template.render(project_name=project_path.name, cli_name=cli_name)
+                    template.render(
+                        project_name=project_path.name.replace("-", "_"),
+                        cli_name=cli_name,
+                    )
                 )
             src_file = project_path.name.replace("-", "_")
             cli_path = project_path / src_file / "cli" / "__init__.py"
