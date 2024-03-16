@@ -13,7 +13,7 @@ from template_this.project_builder import ProjectBuilder
 @click.option(
     "--cli-name",
     show_default=True,
-    default="False",
+    default="",
     help=(
         "Specify if you want a cli alias in your pyproject.toml."
         "If none are specified, no cli alias nor cli config will be generated"
