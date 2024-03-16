@@ -13,6 +13,7 @@ class Library(BaseModel):
 class VSCodeConfig(BaseModel):
     launch_config: Optional[Path] = None
     settings_config: Optional[Path] = None
+    makefile_config: Optional[list[Path]] = None
 
 
 class ProjectSettings(BaseModel):
