@@ -52,4 +52,9 @@ class VSCodeManager:
             )
         if makefile_paths:
             for makefile_path in makefile_paths:
-                self._template_and_copy(makefile_path, project_path, paths, {"project_src":project_path.name.replace("-", "_")})
+                self._template_and_copy(
+                    makefile_path,
+                    project_path,
+                    paths,
+                    {"project_src": project_path.name.replace("-", "_")},
+                )

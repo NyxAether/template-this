@@ -13,12 +13,7 @@ class PoetryManager(object):
     def __init__(self, settings: ProjectSettings) -> None:
         self.settings = settings
 
-    def build(self, project_path: Path, paths: Paths, cli_name: str) -> Path:
-        if project_path.exists():
-            raise FileExistsError(
-                f"Project path {project_path} already exists. Aborting."
-            )
-        # Create project
+    def _create_project(self, project_path: Path) -> Path:
         subprocess.run([self.settings.poetry_path, "new", project_path])
         project_path = project_path.resolve()
         os.chdir(project_path)
@@ -34,7 +29,10 @@ class PoetryManager(object):
                     ],
                 ]
             )
-        # Add config files for tools
+
+        return project_path
+
+    def _copy_configs(self, project_path: Path, paths: Paths) -> None:
         for library in self.settings.librairies:
             if library.config is not None:
                 config_file = Path(library.config)
@@ -46,7 +44,7 @@ class PoetryManager(object):
                         f"No config file added for {library.name}"
                     )
 
-        # Update pyproject.toml
+    def _create_cli(self, project_path: Path, paths: Paths, cli_name: str) -> None:
         if cli_name and paths.pyproject.exists():
             print(f"Updating {project_path.name.replace('-', '_')}")
             with open(paths.pyproject, "r") as config, open(
@@ -70,6 +68,19 @@ class PoetryManager(object):
                     "if __name__ == '__main__':\n"
                     "    main()"
                 )
+
+    def build(self, project_path: Path, paths: Paths, cli_name: str) -> Path:
+        if project_path.exists():
+            raise FileExistsError(
+                f"Project path {project_path} already exists. Aborting."
+            )
+        # Create project
+        project_path = self._create_project(project_path)
+        # Add config files for tools
+        self._copy_configs(project_path, paths)
+
+        # Update pyproject.toml
+        self._create_cli(project_path, paths, cli_name)
         # Install dependencies
         subprocess.run([self.settings.poetry_path, "install"])
 
