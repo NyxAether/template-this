@@ -1,0 +1,26 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {% if cli_name %}
+        {
+            "name": "Python: Test CLI",
+            "type": "python",
+            "cwd": "${workspaceFolder}",
+            "request": "launch",
+            "program": "${workspaceFolder}\\.venv\\Scripts\\{{ cli_name }}.exe",
+            "args": [""],
+            "console": "integratedTerminal"
+        }
+        ,
+        {% endif %}
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {"PYTHONPATH": "${workspaceFolder}"}
+        }
+    ]
+}

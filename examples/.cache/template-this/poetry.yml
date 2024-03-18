@@ -1,0 +1,17 @@
+librairies:
+  - name: "flake8"
+    config: ".flake8" 
+  - name: "black"
+  - name: "mypy"
+    config: "mypy.ini"
+  - name: "pylint"
+    config: ".pylintrc"
+  - name: "pytest"
+  - name: "isort"
+  - name: "pydantic"
+vscode_config:
+    settings_config: ".vscode/settings.json"
+    launch_config: ".vscode/launch.json"
+    makefile_config:
+      - "Makefile"
+      - "check.ps1"

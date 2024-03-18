@@ -1,0 +1,2 @@
+[tool.poetry.scripts]
+{{ cli_name }} = "{{ project_name }}.cli:main"
