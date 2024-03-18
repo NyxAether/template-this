@@ -31,7 +31,7 @@ To configure the beahviour of the tool, you will need a configuration folder loc
 This folder will contain all the configuration files needed to run the tool.
 
 ### `poetry.yml`
-You can find an example of a `poetry.yml` in the [`examples` folder](https://github.com/nyx-hemera/template-this/blob/main/examples/poetry.yml).
+You can find an example of a `poetry.yml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/poetry.yml).
 - `librairies` : list of libraries to install in the project
     - `name` : name of the library
     -  `config` : path to the config file, if any, that you want to add as default
@@ -42,7 +42,7 @@ You can find an example of a `poetry.yml` in the [`examples` folder](https://git
 
 ### `pyproject.toml`
 Everything in this file will be added at the end of the file `pyproject.toml` that will be created by poetry. Can be templated with the `cli_name` attribute specified when the command `--cli-name` is used.
-You can find an example of a `pyproject.toml` in the [`examples` folder](https://github.com/nyx-hemera/template-this/blob/main/examples/pyproject.toml).
+You can find an example of a `pyproject.toml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/pyproject.toml).
 
 ## Example with librairies
 Here is an example of the stucture of your `template_this` folder and the `poetry.yml` file using flake8, mypy and pytest.
