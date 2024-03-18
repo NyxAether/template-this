@@ -62,7 +62,7 @@ Here is an example of the stucture of your `template_this` folder and the `poetr
 ```
 ### `poetry.yml`
 In this case, your `poetry.yml` will look like this:
-```toml
+```yml
 librairies:
   - name: "flake8"
     config: ".flake8" 
