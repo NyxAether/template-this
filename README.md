@@ -34,7 +34,7 @@ This folder will contain all the configuration files needed to run the tool.
 You can find an example of a `poetry.yml` in the [`examples` folder](https://github.com/nyx-hemera/template-this/blob/main/examples/poetry.yml).
 - `librairies` : list of libraries to install in the project
     - `name` : name of the library
-    -  `config` : path to the config file if any you want to add as default
+    -  `config` : path to the config file, if any, that you want to add as default
 - `vscode_config` : configuration for vscode and Makefile. Should be in a folder named `.vscode`
     - `settings_config` : path to the vscode settings default file. Can be templated with the `cli_name` attribute specified when the command `--cli-name` is used
     - `launch_config` : path to the vscode launch default file
