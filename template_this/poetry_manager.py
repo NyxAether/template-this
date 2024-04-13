@@ -22,7 +22,7 @@ class PoetryManager(object):
             subprocess.run(
                 [
                     self.settings.poetry_path,
-                    "add",
+                    "add --group dev",
                     *[
                         library.name + library.version
                         for library in self.settings.librairies
