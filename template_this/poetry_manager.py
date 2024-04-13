@@ -27,7 +27,7 @@ class PoetryManager(object):
                         library.name + library.version
                         for library in self.settings.librairies
                     ],
-                    "--group dev",
+                    "--group", "dev",
                 ]
             )
 
