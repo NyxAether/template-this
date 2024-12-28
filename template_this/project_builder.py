@@ -3,9 +3,9 @@ from pathlib import Path
 
 import yaml
 
+from template_this.dependency_manager.poetry_manager import PoetryManager
 from template_this.github import Github
 from template_this.paths import Paths
-from template_this.poetry_manager import PoetryManager
 from template_this.settings import ProjectSettings
 from template_this.vscode_manager import VSCodeManager
 

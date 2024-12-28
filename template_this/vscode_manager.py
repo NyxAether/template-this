@@ -19,9 +19,10 @@ class VSCodeManager:
     ) -> None:
         (project_path / template_path).parent.mkdir(parents=True, exist_ok=True)
         try:
-            with open(paths.cache_dir / template_path, "r") as template_cfg, open(
-                project_path / template_path, "w"
-            ) as launch:
+            with (
+                open(paths.cache_dir / template_path, "r") as template_cfg,
+                open(project_path / template_path, "w") as launch,
+            ):
                 template = Environment().from_string(template_cfg.read())
                 launch.write(template.render(**template_kwargs))
         except FileNotFoundError:

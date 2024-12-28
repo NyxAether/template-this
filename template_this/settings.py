@@ -17,6 +17,6 @@ class VSCodeConfig(BaseModel):
 
 
 class ProjectSettings(BaseModel):
-    poetry_path: str = "poetry"
+    dep_manager_path: str = "poetry"
     librairies: list[Library]
     vscode_config: Optional[VSCodeConfig] = None

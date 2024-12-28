@@ -8,33 +8,36 @@ from jinja2 import Environment
 from template_this.paths import Paths
 from template_this.settings import ProjectSettings
 
+from . import DepManager
 
-class PoetryManager(object):
+
+class PoetryManager(DepManager):
     def __init__(self, settings: ProjectSettings) -> None:
-        self.settings = settings
+        self._settings = settings
 
     def _create_project(self, project_path: Path) -> Path:
-        subprocess.run([self.settings.poetry_path, "new", project_path])
+        subprocess.run([self._settings.dep_manager_path, "new", project_path])
         project_path = project_path.resolve()
         os.chdir(project_path)
         # Add libraries
-        if len(self.settings.librairies) > 0:
+        if len(self._settings.librairies) > 0:
             subprocess.run(
                 [
-                    self.settings.poetry_path,
+                    self._settings.dep_manager_path,
                     "add",
                     *[
                         library.name + library.version
-                        for library in self.settings.librairies
+                        for library in self._settings.librairies
                     ],
-                    "--group", "dev",
+                    "--group",
+                    "dev",
                 ]
             )
 
         return project_path
 
     def _copy_configs(self, project_path: Path, paths: Paths) -> None:
-        for library in self.settings.librairies:
+        for library in self._settings.librairies:
             if library.config is not None:
                 config_file = Path(library.config)
                 if (paths.cache_dir / config_file).exists():
@@ -48,9 +51,10 @@ class PoetryManager(object):
     def _create_cli(self, project_path: Path, paths: Paths, cli_name: str) -> None:
         if cli_name and paths.pyproject.exists():
             print(f"Updating {project_path.name.replace('-', '_')}")
-            with open(paths.pyproject, "r") as config, open(
-                project_path / "pyproject.toml", "a"
-            ) as toml:
+            with (
+                open(paths.pyproject) as config,
+                open(project_path / "pyproject.toml", "a") as toml,
+            ):
                 template = Environment().from_string(config.read())
                 toml.write("\n\n")
                 toml.write(
@@ -83,6 +87,6 @@ class PoetryManager(object):
         # Update pyproject.toml
         self._create_cli(project_path, paths, cli_name)
         # Install dependencies
-        subprocess.run([self.settings.poetry_path, "install"])
+        subprocess.run([self._settings.dep_manager_path, "install"])
 
         return project_path

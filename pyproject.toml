@@ -1,29 +1,54 @@
-[tool.poetry]
+
+[project]
 name = "template-this"
-version = "0.2.6"
+version = "0.3.6"
 description = ""
-authors = ["NyxAether <contact.nyxhemera@gmail.com>"]
+authors = [{name = "NyxAether", email = "contact.nyxhemera@gmail.com"}]
 readme = "README.md"
 packages = [{include = "template_this"}]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-black = "^24.2.0"
-mypy = "^1.8.0"
-pylint = "^3.0.3"
-flake8 = "^7.0.0"
-pydantic = "^2.6.1"
-click = "^8.1.7"
-pyyaml = "^6.0.1"
-types-pyyaml = "^6.0.12.12"
-isort = "^5.13.2"
-autoflake = "^2.2.1"
-jinja2 = "^3.1.4"
+requires-python = ">= 3.11"
+dependencies = [
+    "click>=8.1.8",
+    "jinja2>=3.1.5",
+    "pydantic>=2.10.4",
+]
 
+[dependency-groups]
+dev = [
+  "mypy",
+  "ruff",
+  "types-pyyaml",
+]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    # flake8-builtins
+    "A",
+    # flake8-bugbear
+    "B",
+    # flake8-comprehensions
+    "C4",
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # isort
+    "I",
+    # pep8-naming
+    "N",
+    # pyupgrade
+    "UP",
+    # flake8-simplify
+    "SIM",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "hatchling.build"
+requires = ["hatchling"]
 
-[tool.poetry.scripts]
+[project.scripts]
 tt = "template_this.cli:main"
