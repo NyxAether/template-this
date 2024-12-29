@@ -1,7 +1,7 @@
 
 [project]
 name = "template-this"
-version = "0.3.6"
+version = "0.3.7"
 description = ""
 authors = [{name = "NyxAether", email = "contact.nyxhemera@gmail.com"}]
 readme = "README.md"
@@ -12,6 +12,7 @@ dependencies = [
     "click>=8.1.8",
     "jinja2>=3.1.5",
     "pydantic>=2.10.4",
+    "pyyaml>=6.0.2",
 ]
 
 [dependency-groups]

@@ -1,22 +1,33 @@
-from typing import TYPE_CHECKING
+import shutil
+import subprocess
+from pathlib import Path
 
+from ..settings import ProjectSettings
 from . import DepManager
-
-if TYPE_CHECKING:
-    from pathlib import Path
-
-    from ..paths import Paths
 
 
 class UVManager(DepManager):
-    def _create_project(self, project_path: Path) -> Path:
-        return project_path
 
-    def _copy_configs(self, project_path: Path, paths: Paths) -> None:
-        raise NotImplementedError
+    def new(self, project_path: Path, settings: ProjectSettings) -> None:
+        subprocess.run([settings.dep_manager_path, "init", "--package", project_path])
+        project_path = project_path.resolve()
+        src_folder = project_path.name.replace("-", "_")
+        shutil.move(project_path / "src" / src_folder, project_path)
+        shutil.rmtree(project_path / "src")
 
-    def _create_cli(self, project_path: Path, paths: Paths, cli_name: str) -> None:
-        raise NotImplementedError
+    def add(self, settings: "ProjectSettings") -> None:
+        if len(settings.librairies) > 0:
+            subprocess.run(
+                [
+                    settings.dep_manager_path,
+                    "add",
+                    *[
+                        library.name + library.version
+                        for library in settings.librairies
+                    ],
+                    "--dev",
+                ]
+            )
 
-    def build(self, project_path: Path, paths: Paths, cli_name: str) -> Path:
-        return super().build(project_path, paths, cli_name)
+    def install(self, settings: "ProjectSettings") -> None:
+        subprocess.run([settings.dep_manager_path, "sync"])

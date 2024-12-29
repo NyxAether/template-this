@@ -3,7 +3,7 @@ from pathlib import Path
 
 import yaml
 
-from template_this.dependency_manager.poetry_manager import PoetryManager
+from template_this.dependency_manager.project_manager import ProjectManager
 from template_this.github import Github
 from template_this.paths import Paths
 from template_this.settings import ProjectSettings
@@ -20,12 +20,12 @@ class ProjectBuilder:
         self._cli_name = cli_name
 
     def build(self) -> None:
-        poetry_data = yaml.safe_load(self._paths.poetry_yml.read_text())
+        tt_data = yaml.safe_load(self._paths.tt_yml.read_text())
 
-        settings = ProjectSettings.model_validate(poetry_data)
+        settings = ProjectSettings.model_validate(tt_data)
 
-        poetry_manager = PoetryManager(settings)
-        self._project_path = poetry_manager.build(
+        project_manager = ProjectManager(settings)
+        self._project_path = project_manager.build(
             self._project_path, self._paths, self._cli_name
         )
         os.chdir(self._project_path)
