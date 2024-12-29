@@ -31,7 +31,7 @@ To configure the beahviour of the tool, you will need a configuration folder loc
 This folder will contain all the configuration files needed to run the tool.
 
 ### `tt.yml`
-You can find an example of a `tt.yml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/poetry.yml).
+You can find an example of a `tt.yml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/tt.yml).
 - `dep_manager_path` : path to the dependency manager you want to use (poetry or uv)
 - `librairies` : list of libraries to install in the project
     - `name` : name of the library
