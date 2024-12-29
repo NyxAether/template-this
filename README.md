@@ -4,7 +4,7 @@
 ## Dependencies
 
 - Python 3.11
-- [poetry](https://github.com/python-poetry/poetry)
+- [poetry](https://github.com/python-poetry/poetry) or [uv](https://docs.astral.sh/uv/)
 
 ## Usage
 ### Basic usage
@@ -25,13 +25,14 @@ To configure the beahviour of the tool, you will need a configuration folder loc
 ~
 ├───.cache
 │     └──template-this
-│        │   poetry.yml
+│        │   tt.yml
 │        │   pyproject.toml
 ```
 This folder will contain all the configuration files needed to run the tool.
 
-### `poetry.yml`
-You can find an example of a `poetry.yml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/poetry.yml).
+### `tt.yml`
+You can find an example of a `tt.yml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/poetry.yml).
+- `dep_manager_path` : path to the dependency manager you want to use (poetry or uv)
 - `librairies` : list of libraries to install in the project
     - `name` : name of the library
     -  `config` : path to the config file, if any, that you want to add as default
@@ -45,7 +46,7 @@ Everything in this file will be added at the end of the file `pyproject.toml` th
 You can find an example of a `pyproject.toml` in the [`examples` folder](https://github.com/NyxAether/template-this/blob/main/examples/.cache/template-this/pyproject.toml).
 
 ## Example with librairies
-Here is an example of the stucture of your `template_this` folder and the `poetry.yml` file using flake8, mypy and pytest.
+Here is an example of the stucture of your `template_this` folder and the `tt.yml` file using flake8, mypy and pytest.
 ### Structure
 ```shell
 ~
@@ -60,9 +61,10 @@ Here is an example of the stucture of your `template_this` folder and the `poetr
 │                launch.json
 │                settings.json
 ```
-### `poetry.yml`
-In this case, your `poetry.yml` will look like this:
+### `tt.yml`
+In this case, your `tt.yml` will look like this:
 ```yml
+dep_manager_path: "poetry"
 librairies:
   - name: "flake8"
     config: ".flake8" 

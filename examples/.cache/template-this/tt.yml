@@ -1,3 +1,4 @@
+dep_manager_path: "uv"
 librairies:
   - name: "flake8"
     config: ".flake8" 
